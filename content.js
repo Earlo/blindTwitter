@@ -58,6 +58,26 @@ function replaceElements() {
     for (let element of retweetElements) {
         element.innerText = "Someone you follow retweeted";
     }
+
+    //TEST
+    let dropdown = document.createElement("select");
+
+    let option1 = document.createElement("option");
+    option1.value = "1";
+    option1.text = "Correct Option";
+
+    let option2 = document.createElement("option");
+    option2.value = "2";
+    option2.text = "Incorrect Option";
+
+    dropdown.appendChild(option1);
+    dropdown.appendChild(option2);
+
+    let hoverThing = document.querySelectorAll(HOVER_SELECTOR);
+    for (let element of hoverThing) {
+        element.style.border = "1px solid red";
+        //element.replaceChildren(dropdown);
+    }
 }
 
 // Throttle the replace function
