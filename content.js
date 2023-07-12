@@ -41,22 +41,24 @@ function throttle(func, limit) {
 }
 
 function shuffle(array) {
-    let currentIndex = array.length,  randomIndex;
-  
+    let currentIndex = array.length,
+        randomIndex;
+
     // While there remain elements to shuffle.
     while (currentIndex != 0) {
-  
-      // Pick a remaining element.
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-  
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
+        // Pick a remaining element.
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex],
+            array[currentIndex],
+        ];
     }
-  
+
     return array;
-  }
+}
 
 let originalData = {};
 // Function to replace profile images, names and handles
@@ -100,30 +102,30 @@ function replaceElements() {
     }
 
     //TEST
-  let dropdown = document.createElement("div");
+    let dropdown = document.createElement("div");
 
     dropdown.style.background = "white";
 
-  let hoverThing = document.querySelectorAll(HOVER_SELECTOR);
-  for (let element of hoverThing) {
-    const correctUsername = element.querySelector(
-      'a[tabindex="-1"] span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0'
-    ).innerText;
-    console.log("correctUsername", correctUsername);
-    console.log(
-      "correctUsername in originalData",
-      originalData[correctUsername]
-    );
+    let hoverThing = document.querySelectorAll(HOVER_SELECTOR);
+    for (let element of hoverThing) {
+        const correctUsername = element.querySelector(
+            'a[tabindex="-1"] span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0'
+        ).innerText;
+        console.log("correctUsername", correctUsername);
+        console.log(
+            "correctUsername in originalData",
+            originalData[correctUsername]
+        );
 
-    let options = Object.entries(originalData).filter(
-      ([nick]) => nick !== correctUsername
-    );
-    let a = options[Math.floor(Math.random() * options.length)][0];
-    let b = options[Math.floor(Math.random() * options.length)][0];
+        let options = Object.entries(originalData).filter(
+            ([nick]) => nick !== correctUsername
+        );
+        let a = options[Math.floor(Math.random() * options.length)][0];
+        let b = options[Math.floor(Math.random() * options.length)][0];
 
-    const [option1, option2, option3] = shuffle([a, b, correctUsername])
+        const [option1, option2, option3] = shuffle([a, b, correctUsername]);
 
-    dropdown.innerHTML = `
+        dropdown.innerHTML = `
         <div class="guess-container">
             <div class="guess-header">
                 AmoGuess©
@@ -138,9 +140,9 @@ function replaceElements() {
             </div>
         </div>
     `;
-
-    element.replaceChildren(dropdown);
-  }
+        element.style.overflow = "inherit";
+        element.children[0].replaceChildren(dropdown);
+    }
 }
 
 // Throttle the replace function
