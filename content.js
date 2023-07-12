@@ -67,7 +67,7 @@ function handleScore(event) {
     if (elem.classList.contains("correcto")) {
         alert("correct answer")
         score += 100;
-        document.getElementById("clippy-score").innerHTML = "Score: " + score;
+        document.getElementById("clippy-score").innerHTML = score;
     }
 }
 
@@ -181,7 +181,7 @@ const clippy = document.createElement("div")
 </div>
 <div class="data">
     <p>
-    <span id="clippy-score">score: 0</span>
+    <span id="clippy-score">0</span>
     </p>
     
     <div class="range">
