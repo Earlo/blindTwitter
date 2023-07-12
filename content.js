@@ -83,7 +83,7 @@ function replaceElements() {
 
     //TEST
     let dropdown = document.createElement("div");
-  dropdown.innerHTML = `
+    dropdown.innerHTML = `
     <div class="guess-container">
   <div class="guess-header">
     AmoGuess©
@@ -99,7 +99,7 @@ function replaceElements() {
 </div>
 `;
 
-  dropdown.style.background = "white";
+    dropdown.style.background = "white";
 
     let hoverThing = document.querySelectorAll(HOVER_SELECTOR);
     for (let element of hoverThing) {
@@ -111,7 +111,8 @@ function replaceElements() {
             "correctUsername in originalData",
             originalData[correctUsername]
         );
-        element.replaceChildren(dropdown);
+        element.style.overflow = "inherit";
+        element.children[0].replaceChildren(dropdown);
     }
 }
 
