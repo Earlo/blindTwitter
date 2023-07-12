@@ -64,10 +64,10 @@ let score = 0;
 
 function handleScore(event) {
     const elem = event.target;
-    console.log(elem.classList)
     if (elem.classList.contains("correcto")) {
         alert("correct answer")
         score += 100;
+        document.getElementById("clippy-score").innerHTML = "Score: " + score;
     }
 }
 
@@ -157,6 +157,14 @@ function replaceElements() {
         dropdown.onclick = handleScore
     }
 }
+
+const clippy = document.createElement("div")
+    clippy.innerHTML = `
+    <div class="clippy-container clippy-container-container">
+    <span id="clippy-score">score: 0</span>
+  </div>
+    `
+document.body.appendChild(clippy);
 
 // Throttle the replace function
 const throttledReplaceElements = throttle(replaceElements, 500);
