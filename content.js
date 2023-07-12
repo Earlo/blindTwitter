@@ -64,15 +64,17 @@ let score = 0;
 
 function handleScore(event) {
     const elem = event.target;
-    if (elem.classList.contains("correcto")) {
-        alert("correct answer 💩")
-        score += 100;
-        document.getElementById("clippy-score").innerHTML = score;
-    } else {
-        elem.classList.add("wobble-hor-top");
-        setTimeout(() => alert("YOUR SUS, FAIL FAIL 👽"), 1000)
-        score -= 150;
-        document.getElementById("clippy-score").innerHTML = score;
+    if (elem.classList.contains("option")) {
+        if (elem.classList.contains("correcto")) {
+            alert("correct answer 💩")
+            score += 100;
+            document.getElementById("clippy-score").innerHTML = score;
+        } else {
+            elem.classList.add("wobble-hor-top");
+            setTimeout(() => alert("YOUR SUS, FAIL FAIL 👽"), 1000)
+            score -= 150;
+            document.getElementById("clippy-score").innerHTML = score;
+        }
     }
 }
 
