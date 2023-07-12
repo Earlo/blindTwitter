@@ -69,7 +69,8 @@ function handleScore(event) {
         score += 100;
         document.getElementById("clippy-score").innerHTML = score;
     } else {
-        alert("YOUR SUS, FAIL FAIL 👽")
+        elem.classList.add("wobble-hor-top");
+        setTimeout(() => alert("YOUR SUS, FAIL FAIL 👽"), 1000)
         score -= 150;
         document.getElementById("clippy-score").innerHTML = score;
     }
