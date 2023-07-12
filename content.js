@@ -22,7 +22,7 @@ const NAME_SELECTOR =
 const HANDLE_SELECTOR =
     'div[data-testid="User-Name"] *[tabindex="-1"] span:not([data-anonymized])';
 
-const HOVER_SELECTOR = 'div[data-testid="HoverCard"] a[role="link"]';
+const HOVER_SELECTOR = 'div[data-testid="HoverCard"]';
 
 const RETWEET_SELECTOR =
     'span[data-testid="socialContext"]:not([data-anonymized])';
