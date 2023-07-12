@@ -66,7 +66,9 @@ function handleScore(event) {
     const elem = event.target;
     if (elem.classList.contains("option")) {
         if (elem.classList.contains("correcto")) {
-            alert("correct answer 💩")
+            elem.classList.add("jello-vertical");
+
+            setTimeout(() => alert("correct answer 💩"), 1000)
             score += 100;
             document.getElementById("clippy-score").innerHTML = score;
         } else {
