@@ -65,8 +65,12 @@ let score = 0;
 function handleScore(event) {
     const elem = event.target;
     if (elem.classList.contains("correcto")) {
-        alert("correct answer")
+        alert("correct answer 💩")
         score += 100;
+        document.getElementById("clippy-score").innerHTML = score;
+    } else {
+        alert("YOUR SUS, FAIL FAIL 👽")
+        score -= 150;
         document.getElementById("clippy-score").innerHTML = score;
     }
 }
