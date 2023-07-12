@@ -58,6 +58,8 @@ function shuffle(array) {
     return array;
   }
 
+let score = 0;
+
 let originalData = {};
 // Function to replace profile images, names and handles
 function replaceElements() {
