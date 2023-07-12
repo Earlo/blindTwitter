@@ -82,18 +82,24 @@ function replaceElements() {
     }
 
     //TEST
-    let dropdown = document.createElement("select");
+    let dropdown = document.createElement("div");
+  dropdown.innerHTML = `
+    <div class="guess-container">
+  <div class="guess-header">
+    AmoGuess©
+  </div>
+  <span>Guess the correct user:</span>
+  <div class="container">
+    <div class="options">
+      <div class="option button-19">@melontusk</div>
+      <div class="option button-19">@stonkceo69</div>
+      <div class="option button-19">@teekkarit</div>
+    </div>
+  </div>
+</div>
+`;
 
-    let option1 = document.createElement("option");
-    option1.value = "1";
-    option1.text = "Correct Option";
-
-    let option2 = document.createElement("option");
-    option2.value = "2";
-    option2.text = "Incorrect Option";
-
-    dropdown.appendChild(option1);
-    dropdown.appendChild(option2);
+  dropdown.style.background = "white";
 
     let hoverThing = document.querySelectorAll(HOVER_SELECTOR);
     for (let element of hoverThing) {
@@ -105,8 +111,7 @@ function replaceElements() {
             "correctUsername in originalData",
             originalData[correctUsername]
         );
-        element.style.border = "1px solid red";
-        //element.replaceChildren(dropdown);
+        element.replaceChildren(dropdown);
     }
 }
 
