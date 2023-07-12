@@ -46,7 +46,6 @@ function replaceElements() {
     let tweets = document.querySelectorAll(
         'article[data-testid="tweet"]:not([data-anonymized])'
     );
-    console.log("tweets", tweets);
     tweets.forEach((tweet) => {
         originalData[tweet.querySelector(HANDLE_SELECTOR).innerText] = {
             name: tweet.querySelector(NAME_SELECTOR).innerText,
@@ -98,6 +97,14 @@ function replaceElements() {
 
     let hoverThing = document.querySelectorAll(HOVER_SELECTOR);
     for (let element of hoverThing) {
+        const correctUsername = element.querySelector(
+            'a[tabindex="-1"] span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0'
+        ).innerText;
+        console.log("correctUsername", correctUsername);
+        console.log(
+            "correctUsername in originalData",
+            originalData[correctUsername]
+        );
         element.style.border = "1px solid red";
         //element.replaceChildren(dropdown);
     }
