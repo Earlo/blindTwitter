@@ -119,8 +119,6 @@ function replaceElements() {
     //TEST
     let dropdown = document.createElement("div");
 
-    dropdown.style.background = "white";
-
     let hoverThing = document.querySelectorAll(HOVER_SELECTOR);
     for (let element of hoverThing) {
         const correctUsername = element.querySelector(
