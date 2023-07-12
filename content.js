@@ -40,8 +40,20 @@ function throttle(func, limit) {
     };
 }
 
+let originalData = {};
 // Function to replace profile images, names and handles
 function replaceElements() {
+    let tweets = document.querySelectorAll(
+        'article[data-testid="tweet"]:not([data-anonymized])'
+    );
+    console.log("tweets", tweets);
+    tweets.forEach((tweet) => {
+        originalData[tweet.querySelector(HANDLE_SELECTOR).innerText] = {
+            name: tweet.querySelector(NAME_SELECTOR).innerText,
+            profileImg: tweet.querySelector(PROFILE_IMG_SELECTOR).src,
+        };
+        tweet.setAttribute("data-anonymized", "true");
+    });
     // Replace profile images
     let profileDivs = document.querySelectorAll(`${PROFILE_DIV_SELECTOR}`);
     for (let div of profileDivs) {
