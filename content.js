@@ -100,37 +100,47 @@ function replaceElements() {
     }
 
     //TEST
-    let dropdown = document.createElement("div");
-  dropdown.innerHTML = `
-    <div class="guess-container">
-  <div class="guess-header">
-    AmoGuess©
-  </div>
-  <span>Guess the correct user:</span>
-  <div class="container">
-    <div class="options">
-      <div class="option button-19">@melontusk</div>
-      <div class="option button-19">@stonkceo69</div>
-      <div class="option button-19">@teekkarit</div>
-    </div>
-  </div>
-</div>
-`;
+  let dropdown = document.createElement("div");
 
   dropdown.style.background = "white";
 
-    let hoverThing = document.querySelectorAll(HOVER_SELECTOR);
-    for (let element of hoverThing) {
-        const correctUsername = element.querySelector(
-            'a[tabindex="-1"] span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0'
-        ).innerText;
-        console.log("correctUsername", correctUsername);
-        console.log(
-            "correctUsername in originalData",
-            originalData[correctUsername]
-        );
-        element.replaceChildren(dropdown);
-    }
+  let hoverThing = document.querySelectorAll(HOVER_SELECTOR);
+  for (let element of hoverThing) {
+    const correctUsername = element.querySelector(
+      'a[tabindex="-1"] span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0'
+    ).innerText;
+    console.log("correctUsername", correctUsername);
+    console.log(
+      "correctUsername in originalData",
+      originalData[correctUsername]
+    );
+
+    let options = Object.entries(originalData).filter(
+      ([nick]) => nick !== correctUsername
+    );
+    let a = options[Math.floor(Math.random() * options.length)][0];
+    let b = options[Math.floor(Math.random() * options.length)][0];
+
+    const [option1, option2, option3] = shuffle([a, b, correctUsername])
+
+    dropdown.innerHTML = `
+        <div class="guess-container">
+            <div class="guess-header">
+                AmoGuess©
+            </div>
+            <span>Guess the correct user:</span>
+            <div class="container">
+                <div class="options">
+                    <div class="option button-19">${option1}</div>
+                    <div class="option button-19">${option2}</div>
+                    <div class="option button-19">${option3}</div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    element.replaceChildren(dropdown);
+  }
 }
 
 // Throttle the replace function
