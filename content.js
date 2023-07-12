@@ -129,11 +129,6 @@ function replaceElements() {
         const correctUsername = element.querySelector(
             'a[tabindex="-1"] span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0'
         ).innerText;
-        console.log("correctUsername", correctUsername);
-        console.log(
-            "correctUsername in originalData",
-            originalData[correctUsername]
-        );
 
         let options = Object.entries(originalData).filter(
             ([nick]) => nick !== correctUsername
