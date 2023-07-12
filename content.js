@@ -62,6 +62,15 @@ function shuffle(array) {
 
 let score = 0;
 
+function handleScore(event) {
+    const elem = event.target;
+    console.log(elem.classList)
+    if (elem.classList.contains("correcto")) {
+        alert("correct answer")
+        score += 100;
+    }
+}
+
 let originalData = {};
 // Function to replace profile images, names and handles
 function replaceElements() {
@@ -135,15 +144,17 @@ function replaceElements() {
             <span>Guess the correct user:</span>
             <div class="container">
                 <div class="options">
-                    <div class="option button-19">${option1}</div>
-                    <div class="option button-19">${option2}</div>
-                    <div class="option button-19">${option3}</div>
+                    <div class="option button-19 ${option1 === correctUsername ? 'correcto' : 'wrongo'}">${option1}</div>
+                    <div class="option button-19 ${option2 === correctUsername ? 'correcto' : 'wrongo'}">${option2}</div>
+                    <div class="option button-19 ${option3 === correctUsername ? 'correcto' : 'wrongo'}">${option3}</div>
                 </div>
             </div>
         </div>
     `;
         element.style.overflow = "inherit";
         element.children[0].replaceChildren(dropdown);
+
+        dropdown.onclick = handleScore
     }
 }
 
