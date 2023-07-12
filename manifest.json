@@ -1,13 +1,14 @@
 {
-    "manifest_version": 2,
-    "name": "Twitter Profile Hider",
-    "description": "This extension hides profile information on Twitter.",
-    "version": "1.0",
-    "content_scripts": [
-        {
-            "matches": ["https://twitter.com/*"],
-            "js": ["content.js"]
-        }
-    ],
-    "permissions": ["https://twitter.com/"]
+  "manifest_version": 2,
+  "name": "Twitter Profile Hider",
+  "description": "This extension hides profile information on Twitter.",
+  "version": "1.0",
+  "content_scripts": [
+    {
+      "matches": ["https://twitter.com/*"],
+      "js": ["content.js"],
+      "css": ["main.css"]
+    }
+  ],
+  "permissions": ["https://twitter.com/"]
 }
