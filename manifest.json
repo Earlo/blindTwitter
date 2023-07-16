@@ -1,8 +1,20 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "Twitter Profile Hider",
     "description": "This extension hides profile information on Twitter.",
     "version": "1.0",
+    "permissions": ["storage"],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "images/drowsee_16.png",
+            "48": "images/drowsee_48.png",
+            "128": "images/drowsee_128.png"
+        }
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
     "content_scripts": [
         {
             "matches": ["https://twitter.com/*"],
@@ -10,5 +22,5 @@
             "css": ["main.css"]
         }
     ],
-    "permissions": ["https://twitter.com/"]
+    "host_permissions": ["https://twitter.com/"]
 }
