@@ -2,27 +2,21 @@
 const REPLACEMENT_NAME = "Anonymous";
 const REPLACEMENT_HANDLE = " @anonymous";
 
+// Tweet Selector
+const TWEET_SELECTOR = 'article[data-testid="tweet"]:not([data-anonymized])';
 // Selectors for different elements
 const PROFILE_DIV_SELECTOR =
-    'div[data-testid^="UserAvatar-Container-"] div.css-1dbjc4n.r-1niwhzg.r-vvn4in.r-u6sd8q.r-4gszlv.r-1p0dtai.r-1pi2tsx.r-1d2f490.r-u8s1d.r-zchlnj.r-ipm5af.r-13qz1uu.r-1wyyakw:not([data-anonymized])';
+    'div[data-testid^="UserAvatar-Container-"] [style*="background-image"]';
 const PROFILE_IMG_SELECTOR = "img.css-9pa8cd:not([data-anonymized])";
-
-/**
-const NAME_SELECTOR =
-    'div[data-testid="User-Name"] a:not([tabindex]) div div span span';
-const HANDLE_SELECTOR =
-    'div[data-testid="User-Name"] a[tabindex="-1"] div span';
- */
 
 const NAME_SELECTOR =
     'div[data-testid="User-Name"] div[dir="ltr"] span span:not([data-anonymized])';
 const HANDLE_SELECTOR =
     'div[data-testid="User-Name"] *[tabindex="-1"] span:not([data-anonymized])';
-
-const HOVER_SELECTOR = 'div[data-testid="HoverCard"]';
-
 const RETWEET_SELECTOR =
     'span[data-testid="socialContext"]:not([data-anonymized])';
+
+const HOVER_SELECTOR = 'div[data-testid="HoverCard"]';
 
 function throttle(func, limit) {
     let inThrottle;
@@ -77,47 +71,32 @@ function handleScore(event) {
 let originalData = {};
 // Function to replace profile images, names and handles
 function replaceElements() {
-    let tweets = document.querySelectorAll(
-        'article[data-testid="tweet"]:not([data-anonymized])'
-    );
+    let tweets = document.querySelectorAll(TWEET_SELECTOR);
     tweets.forEach((tweet) => {
         originalData[tweet.querySelector(HANDLE_SELECTOR).innerText] = {
             name: tweet.querySelector(NAME_SELECTOR).innerText,
             profileImg: tweet.querySelector(PROFILE_IMG_SELECTOR).src,
         };
+        let profileDivs = tweet.querySelectorAll(`${PROFILE_DIV_SELECTOR}`);
+        for (let div of profileDivs) {
+            div.style.backgroundImage = `url(${Morko})`;
+        }
+        let nameElements = tweet.querySelectorAll(`${NAME_SELECTOR}`);
+        for (let element of nameElements) {
+            element.innerText = REPLACEMENT_NAME;
+        }
+        let handleElements = tweet.querySelectorAll(`${HANDLE_SELECTOR}`);
+        for (let element of handleElements) {
+            element.innerText = REPLACEMENT_HANDLE;
+        }
+        let retweetElements = tweet.querySelectorAll(`${RETWEET_SELECTOR}`);
+        for (let element of retweetElements) {
+            element.innerText = "Someone you follow retweeted";
+        }
         tweet.setAttribute("data-anonymized", "true");
     });
-    // Replace profile images
-    let profileDivs = document.querySelectorAll(`${PROFILE_DIV_SELECTOR}`);
-    for (let div of profileDivs) {
-        div.style.backgroundImage = `url(${Drowzee})`;
-        div.setAttribute("data-anonymized", "true");
-    }
 
-    // Replace names
-    let nameElements = document.querySelectorAll(`${NAME_SELECTOR}`);
-    for (let element of nameElements) {
-        element.innerText = REPLACEMENT_NAME;
-        element.setAttribute("data-anonymized", "true");
-    }
-
-    // Replace handles
-    let handleElements = document.querySelectorAll(`${HANDLE_SELECTOR}`);
-    for (let element of handleElements) {
-        element.innerText = REPLACEMENT_HANDLE;
-        element.setAttribute("data-anonymized", "true");
-    }
-
-    // Replace retweets
-    let retweetElements = document.querySelectorAll(`${RETWEET_SELECTOR}`);
-    for (let element of retweetElements) {
-        element.innerText = "Someone you follow retweeted";
-        element.setAttribute("data-anonymized", "true");
-    }
-
-    //TEST
     let dropdown = document.createElement("div");
-
     let hoverThing = document.querySelectorAll(HOVER_SELECTOR);
     for (let element of hoverThing) {
         const correctUsername = element.querySelector(
@@ -205,7 +184,7 @@ let observer = new MutationObserver((mutations) => {
     // Check if the mutation involves elements we're interested in
     for (let mutation of mutations) {
         if (
-            mutation.target.matches(PROFILE_DIV_SELECTOR) ||
+            mutation.target.matches(TWEET_SELECTOR) ||
             mutation.target.matches(PROFILE_IMG_SELECTOR) ||
             mutation.target.matches(NAME_SELECTOR) ||
             mutation.target.matches(HANDLE_SELECTOR) ||
