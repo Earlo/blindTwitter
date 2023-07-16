@@ -67,13 +67,10 @@ function handleScore(event) {
     if (elem.classList.contains("option")) {
         if (elem.classList.contains("correcto")) {
             elem.classList.add("jello-vertical");
-
-            setTimeout(() => alert("correct answer 💩"), 1000)
             score += 100;
             document.getElementById("clippy-score").innerHTML = score;
         } else {
             elem.classList.add("wobble-hor-top");
-            setTimeout(() => alert("YOUR SUS, FAIL FAIL 👽"), 1000)
             score -= 150;
             document.getElementById("clippy-score").innerHTML = score;
         }
@@ -146,9 +143,15 @@ function replaceElements() {
             <span>Guess the correct user:</span>
             <div class="container">
                 <div class="options">
-                    <div class="option button-19 ${option1 === correctUsername ? 'correcto' : 'wrongo'}">${option1}</div>
-                    <div class="option button-19 ${option2 === correctUsername ? 'correcto' : 'wrongo'}">${option2}</div>
-                    <div class="option button-19 ${option3 === correctUsername ? 'correcto' : 'wrongo'}">${option3}</div>
+                    <div class="option button-19 ${
+                        option1 === correctUsername ? "correcto" : "wrongo"
+                    }">${option1}</div>
+                    <div class="option button-19 ${
+                        option2 === correctUsername ? "correcto" : "wrongo"
+                    }">${option2}</div>
+                    <div class="option button-19 ${
+                        option3 === correctUsername ? "correcto" : "wrongo"
+                    }">${option3}</div>
                 </div>
             </div>
         </div>
@@ -156,45 +159,41 @@ function replaceElements() {
         element.style.overflow = "inherit";
         element.children[0].replaceChildren(dropdown);
 
-        dropdown.onclick = handleScore
+        dropdown.onclick = handleScore;
     }
 }
 
-const clippy = document.createElement("div")
-    clippy.innerHTML = `
-    <div class="clippy-container clippy-container-container">
-    
-<div class="card">
-<div class="title">
-    <span>
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trophy" width="32" height="32" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-<path d="M8 21l8 0"></path>
-<path d="M12 17l0 4"></path>
-<path d="M7 4l10 0"></path>
-<path d="M17 4v8a5 5 0 0 1 -10 0v-8"></path>
-<path d="M5 9m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
-<path d="M19 9m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
-</svg>
-    </span>
-    <p class="title-text">
-    AmoGuess© Score
-    </p>
-</div>
-<div class="data">
-    <p>
-    <span id="clippy-score">0</span>
-    </p>
-    
-    <div class="range">
-        <div class="fill">
+const clippy = document.createElement("div");
+clippy.innerHTML = `
+<div class="clippy-container clippy-container-container">
+    <div class="card">
+        <div class="title">
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trophy" width="32" height="32" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M8 21l8 0"></path>
+                    <path d="M12 17l0 4"></path>
+                    <path d="M7 4l10 0"></path>
+                    <path d="M17 4v8a5 5 0 0 1 -10 0v-8"></path>
+                    <path d="M5 9m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+                    <path d="M19 9m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+                </svg>
+            </span>
+            <p class="title-text">
+                AmoGuess© Score
+            </p>
+        </div>
+        <div class="data">
+            <p>
+                <span id="clippy-score">0</span>
+            </p>
+            <div class="range">
+                <div class="fill">
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
-
-  </div>
-    `
+</div>`;
 document.body.appendChild(clippy);
 
 // Throttle the replace function
