@@ -8,7 +8,6 @@ const TWEET_SELECTOR = 'article[data-testid="tweet"]:not([data-anonymized])';
 const PROFILE_DIV_SELECTOR =
     'div[data-testid^="UserAvatar-Container-"] [style*="background-image"]';
 const PROFILE_IMG_SELECTOR = "img.css-9pa8cd:not([data-anonymized])";
-
 const NAME_SELECTOR =
     'div[data-testid="User-Name"] div[dir="ltr"] span span:not([data-anonymized])';
 const HANDLE_SELECTOR =
@@ -17,19 +16,6 @@ const RETWEET_SELECTOR =
     'span[data-testid="socialContext"]:not([data-anonymized])';
 
 const HOVER_SELECTOR = 'div[data-testid="HoverCard"]';
-
-function throttle(func, limit) {
-    let inThrottle;
-    return function () {
-        const args = arguments;
-        const context = this;
-        if (!inThrottle) {
-            func.apply(context, args);
-            inThrottle = true;
-            setTimeout(() => (inThrottle = false), limit);
-        }
-    };
-}
 
 function shuffle(array) {
     let currentIndex = array.length,
@@ -56,7 +42,7 @@ let score = 0;
 function handleScore(event) {
     const elem = event.target;
     if (elem.classList.contains("option")) {
-        if (elem.classList.contains("correcto")) {
+        if (elem.classList.contains("correct")) {
             elem.classList.add("jello-vertical");
             score += 100;
             document.getElementById("clippy-score").innerHTML = score;
@@ -120,13 +106,13 @@ function replaceElements() {
             <div class="container">
                 <div class="options">
                     <div class="option button-19 ${
-                        option1 === correctUsername ? "correcto" : "wrongo"
+                        option1 === correctUsername ? "correct" : "wrong"
                     }">${option1}</div>
                     <div class="option button-19 ${
-                        option2 === correctUsername ? "correcto" : "wrongo"
+                        option2 === correctUsername ? "correct" : "wrong"
                     }">${option2}</div>
                     <div class="option button-19 ${
-                        option3 === correctUsername ? "correcto" : "wrongo"
+                        option3 === correctUsername ? "correct" : "wrong"
                     }">${option3}</div>
                 </div>
             </div>
@@ -172,36 +158,17 @@ clippy.innerHTML = `
 </div>`;
 document.body.appendChild(clippy);
 
-// Throttle the replace function
-const throttledReplaceElements = throttle(replaceElements, 500);
-
-// Call the function when the page loads
-window.onload = throttledReplaceElements;
-
-// Observe changes
-let bodyList = document.querySelector("body");
-let observer = new MutationObserver((mutations) => {
-    // Check if the mutation involves elements we're interested in
-    for (let mutation of mutations) {
-        if (
-            mutation.target.matches(TWEET_SELECTOR) ||
-            mutation.target.matches(PROFILE_IMG_SELECTOR) ||
-            mutation.target.matches(NAME_SELECTOR) ||
-            mutation.target.matches(HANDLE_SELECTOR) ||
-            mutation.target.matches(RETWEET_SELECTOR) ||
-            Array.from(mutation.addedNodes).some(
-                (node) =>
-                    node.matches &&
-                    (node.matches(PROFILE_DIV_SELECTOR) ||
-                        node.matches(PROFILE_IMG_SELECTOR) ||
-                        node.matches(NAME_SELECTOR) ||
-                        node.matches(HANDLE_SELECTOR))
-            )
-        ) {
-            throttledReplaceElements();
-            break;
-        }
+const observer = new MutationObserver((mutations) => {
+    if (
+        mutations.some((mutation) =>
+            ["childList", "subtree"].includes(mutation.type)
+        )
+    ) {
+        replaceElements();
     }
 });
-let config = { childList: true, subtree: true };
-observer.observe(bodyList, config);
+
+observer.observe(document, {
+    childList: true,
+    subtree: true,
+});
